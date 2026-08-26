@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OffHours24 — AI Chatbots & Voice Agents</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
+  <style>
+    /* ============ THEME TOKENS ============ */
+    /* Dark-first: :root IS the dark theme */
+    :root {
+      /* Brand */
+      --indigo: #7C74FF;
+      --indigo-bright: #A29BFF;
+      --indigo-deep: #4F46E5;
+      --neon: #4DFFA6;
+      --neon-bright: #7BFFC0;
+      --neon-soft: rgba(77, 255, 166, 0.14);
+      --glow: rgba(124, 116, 255, 0.35);
+
+      /* Deep indigo-black surfaces */
+      --bg: #07070F;
+      --bg-2: #0B0B18;
+      --surface: rgba(22, 22, 38, 0.7);
+      --surface-solid: #12121F;
+      --surface-2: #1A1A2C;
+      --ink: #F4F4FB;
+      --ink-soft: #B4B4CE;
+      --ink-faint: #74748F;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(124, 116, 255, 0.4);
+      --shadow: rgba(0, 0, 0, 0.55);
+
+      /* Chat bubbles */
+      --chat-bg: #0A0A16;
+      --bot-bubble: #1C1C30;
+      --input-bg: #14141F;
+    }
+
+    /* Optional light mode via toggle */
+    :root[data-theme="light"] {
+      --indigo: #4F46E5;
+      --indigo-bright: #6366F1;
+      --indigo-deep: #3730A3;
+      --neon: #10B981;
+      --neon-bright: #059669;
+      --neon-soft: rgba(16, 185, 129, 0.12);
+      --glow: rgba(79, 70, 229, 0.18);
+
+      --bg: #F7F7FB;
+      --bg-2: #FFFFFF;
+      --surface: #FFFFFF;
+      --surface-solid: #FFFFFF;
+      --surface-2: #F1F1F9;
+      --ink: #14142B;
+      --ink-soft: #4B4B66;
+      --ink-faint: #8A8AA3;
+      --border: #E5E5F0;
+      --border-strong: rgba(79, 70, 229, 0.35);
+      --shadow: rgba(79, 70, 229, 0.10);
+
+      --chat-bg: #F1F1F9;
+      --bot-bubble: #ECECF6;
+      --input-bg: #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+      transition: background 0.3s ease, color 0.3s ease;
+      position: relative;
+    }
+    /* Ambient glow + subtle grid backdrop (dark theme) */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(60% 50% at 15% 0%, rgba(124, 116, 255, 0.18), transparent 60%),
+        radial-gradient(55% 45% at 100% 20%, rgba(77, 255, 166, 0.10), transparent 60%),
+        radial-gradient(50% 50% at 80% 100%, rgba(124, 116, 255, 0.12), transparent 60%);
+      pointer-events: none;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+      pointer-events: none;
+    }
+    :root[data-theme="light"] body::before,
+    :root[data-theme="light"] body::after { opacity: 0.5; }
+
+    h1, h2, h3, h4 {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      text-wrap: balance;
+      color: var(--ink);
+    }
+
+    h1 { font-size: 3.6rem; line-height: 1.08; letter-spacing: -0.03em; }
+    h2 { font-size: 2.3rem; line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    h3 { font-size: 1.2rem; margin-bottom: 0.6rem; }
+
+    .accent { color: var(--indigo); }
+    .accent-neon { color: var(--indigo); }
+
+    /* ============ NAVBAR / BRAND ============ */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      padding: 1.1rem 2rem;
+      background: linear-gradient(to bottom, var(--bg), transparent);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-decoration: none;
+      user-select: none;
+    }
+    .brand .mark {
+      width: 38px; height: 38px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, var(--indigo), var(--neon));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      box-shadow: 0 0 22px var(--glow);
+    }
+    .brand .q { color: var(--neon); }
+
+    /* ============ THEME TOGGLE ============ */
+    .theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 100;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 1.35rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px var(--shadow);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+    .theme-toggle:hover {
+      transform: translateY(-2px) rotate(-12deg);
+      border-color: var(--indigo);
+    }
+
+    /* ============ BUTTONS ============ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-primary {
+      background: var(--indigo);
+      color: #fff;
+      box-shadow: 0 8px 24px var(--shadow);
+    }
+    .btn-primary:hover {
+      background: var(--indigo-bright);
+      transform: translateY(-2px);
+    }
+    .btn-neon {
+      background: var(--neon);
+      color: #06210F;
+      box-shadow: 0 0 0 rgba(43, 255, 136, 0);
+    }
+    .btn-neon:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 28px var(--neon-soft);
+    }
+
+    /* ============ HERO ============ */
+    .hero {
+      position: relative;
+      padding: 5rem 2rem;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 55%;
+      height: 90%;
+      background: radial-gradient(circle at center, var(--neon-soft), transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: -25%;
+      left: -15%;
+      width: 60%;
+      height: 90%;
+      background: radial-gradient(circle at center, rgba(79,70,229,0.14), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-container {
+      max-width: 1300px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--indigo);
+      background: var(--neon-soft);
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+    .eyebrow .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--neon);
+      box-shadow: 0 0 10px var(--neon);
+    }
+    .hero-content h1 { margin-bottom: 1.4rem; }
+    .hero-content h1 .hl {
+      background: linear-gradient(120deg, var(--indigo-bright), var(--neon));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+    }
+    .hero-content p {
+      font-size: 1.12rem;
+      color: var(--ink-soft);
+      margin-bottom: 2.2rem;
+      max-width: 520px;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+    .hero-stat .num {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .hero-stat .num span { color: var(--indigo); }
+    .hero-stat .label {
+      font-size: 0.85rem;
+      color: var(--ink-faint);
+    }
+
+    /* ============ CHATBOT DEMO ============ */
+    .chatbot {
+      display: flex;
+      flex-direction: column;
+      height: 520px;
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 30px 80px var(--shadow), 0 0 60px var(--glow);
+      animation: floatIn 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(30px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .chatbot-header {
+      background: var(--indigo);
+      color: #fff;
+      padding: 1.15rem 1.35rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .chatbot-header .ava {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: rgba(255,255,255,0.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .chatbot-header .meta { display: flex; flex-direction: column; line-height: 1.25; }
+    .chatbot-header .meta small { font-weight: 400; opacity: 0.85; font-size: 0.75rem; display: flex; align-items: center; gap: 0.35rem; }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--neon);
+      box-shadow: 0 0 8px var(--neon);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+
+    .chatbot-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      background: var(--chat-bg);
+    }
+    .msg { display: flex; gap: 0.6rem; align-items: flex-end; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
+    .msg.user { flex-direction: row-reverse; }
+    .msg-ava {
+      width: 30px; height: 30px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; font-size: 0.7rem; flex-shrink: 0;
+    }
+    .msg.bot .msg-ava { background: var(--indigo); color: #fff; }
+    .msg.user .msg-ava { background: var(--neon); color: #06210F; }
+    .msg-bubble {
+      max-width: 74%;
+      padding: 0.7rem 1rem;
+      border-radius: 14px;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+    .msg.bot .msg-bubble { background: var(--bot-bubble); color: var(--ink); border-bottom-left-radius: 4px; }
+    .msg.user .msg-bubble { background: var(--indigo); color: #fff; border-bottom-right-radius: 4px; }
+
+    .typing { display: flex; gap: 4px; padding: 0.9rem 1rem; }
+    .typing span {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--ink-faint);
+      animation: blink 1.4s infinite both;
+    }
+    .typing span:nth-child(2){ animation-delay: 0.2s; }
+    .typing span:nth-child(3){ animation-delay: 0.4s; }
+    @keyframes blink { 0%,80%,100%{opacity:0.3;} 40%{opacity:1;} }
+
+    .chatbot-input {
+      padding: 0.9rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 0.6rem;
+      background: var(--surface);
+    }
+    .chatbot-input input {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      color: var(--ink);
+      background: var(--input-bg);
+    }
+    .chatbot-input input:focus {
+      outline: none;
+      border-color: var(--indigo);
+      box-shadow: 0 0 0 3px var(--neon-soft);
+    }
+    .chatbot-input button {
+      background: var(--indigo);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 0 1.15rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.25s ease;
+    }
+    .chatbot-input button:hover { background: var(--indigo-bright); }
+
+    /* ============ SECTIONS ============ */
+    section { padding: 5.5rem 2rem; }
+    section.alt { background: var(--bg-2); }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-head { text-align: center; margin-bottom: 3.5rem; }
+    .section-head .kicker {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--neon);
+      margin-bottom: 0.8rem;
+    }
+    .section-head h2 {
+      background: linear-gradient(120deg, var(--ink), var(--indigo-bright));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .section-head p { font-size: 1.08rem; color: var(--ink-soft); max-width: 560px; margin: 0.5rem auto 0; }
+
+    /* Cards */
+    .grid { display: grid; gap: 1.5rem; }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 1.9rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    section.alt .card { background: var(--surface); }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-strong);
+      box-shadow: 0 18px 50px var(--shadow), 0 0 0 1px var(--glow);
+    }
+    .card .ico {
+      width: 52px; height: 52px;
+      border-radius: 13px;
+      background: var(--neon-soft);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.1rem;
+    }
+    .card p { color: var(--ink-soft); font-size: 0.94rem; line-height: 1.65; }
+
+    /* Feature (why us) rows */
+    .feature {
+      display: flex; gap: 1.2rem; align-items: flex-start;
+      padding: 1.4rem;
+      border-radius: 14px;
+      transition: background 0.25s ease;
+    }
+    .feature:hover { background: var(--surface-2); }
+    .feature .ico {
+      width: 54px; height: 54px; flex-shrink: 0;
+      border-radius: 13px;
+      background: var(--indigo);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+    }
+    .feature h4 { font-size: 1.05rem; margin-bottom: 0.35rem; }
+    .feature p { color: var(--ink-soft); font-size: 0.92rem; }
+
+    /* Benefits */
+    .benefit { display: flex; gap: 1rem; align-items: flex-start; }
+    .benefit .chk {
+      width: 26px; height: 26px; flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--neon);
+      color: #06210F;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem;
+      margin-top: 0.15rem;
+      box-shadow: 0 0 14px var(--neon-soft);
+    }
+    .benefit h4 { font-size: 1rem; margin-bottom: 0.3rem; }
+    .benefit p { color: var(--ink-soft); font-size: 0.92rem; }
+
+    /* Onboarding timeline */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; position: relative; }
+    .step { position: relative; padding-top: 0.5rem; }
+    .step .num {
+      width: 62px; height: 62px;
+      border-radius: 18px;
+      background: var(--surface-solid);
+      border: 2px solid var(--indigo);
+      color: var(--indigo);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-size: 1.5rem; font-weight: 800;
+      margin-bottom: 1.2rem;
+      position: relative;
+      z-index: 1;
+    }
+    section.alt .step .num { background: var(--surface-solid); }
+    .step h4 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+    .step p { color: var(--ink-soft); font-size: 0.9rem; }
+
+    /* Testimonials */
+    .quote {
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 1.3rem;
+      position: relative;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    section.alt .quote { background: var(--surface); }
+    .quote:hover { transform: translateY(-4px); border-color: var(--border-strong); }
+    .quote .stars { color: var(--neon); font-size: 1.1rem; letter-spacing: 0.2rem; }
+    .quote .text { color: var(--ink-soft); font-size: 0.96rem; line-height: 1.7; flex: 1; }
+    .quote .who { display: flex; align-items: center; gap: 0.9rem; }
+    .quote .who .av {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--indigo); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Sora', sans-serif; font-weight: 700;
+    }
+    .quote .who h5 { font-family: 'Sora', sans-serif; font-size: 0.95rem; margin-bottom: 0.15rem; }
+    .quote .who p { color: var(--ink-faint); font-size: 0.83rem; }
+
+    /* CTA */
+    .cta {
+      margin: 5.5rem 2rem;
+      max-width: 1160px;
+      margin-left: auto; margin-right: auto;
+      background: linear-gradient(135deg, var(--indigo-deep), #1A1638 55%, #0C1A18);
+      border: 1px solid var(--border-strong);
+      border-radius: 24px;
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 80px var(--glow);
+    }
+    .cta::before {
+      content: "";
+      position: absolute;
+      top: -40%; right: -10%;
+      width: 55%; height: 150%;
+      background: radial-gradient(circle, rgba(77,255,166,0.20), transparent 65%);
+    }
+    :root[data-theme="light"] .cta {
+      background: linear-gradient(135deg, var(--indigo), var(--indigo-bright));
+    }
+    .cta h2 { color: #fff; position: relative; }
+    .cta p { color: rgba(255,255,255,0.9); max-width: 560px; margin: 0.8rem auto 2rem; position: relative; }
+    .cta .btn { position: relative; }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      color: var(--ink-faint);
+      font-size: 0.88rem;
+      border-top: 1px solid var(--border);
+    }
+    footer strong { color: var(--ink); }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 860px) {
+      h1 { font-size: 2.6rem; }
+      h2 { font-size: 1.85rem; }
+      .hero { min-height: auto; padding: 6rem 1.5rem 3rem; }
+      .hero-container { grid-template-columns: 1fr; gap: 2.5rem; }
+      .chatbot { height: 440px; }
+      .hero-stats { gap: 1.8rem; flex-wrap: wrap; }
+      section { padding: 3.5rem 1.5rem; }
+      .cta { margin: 3.5rem 1.5rem; padding: 3rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a class="brand" href="#top"><span class="mark">🌙</span>OffHours<span class="q">24</span></a>
+  </nav>
+
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+
+  <!-- HERO -->
+  <div class="hero" id="top">
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="eyebrow"><span class="dot"></span> AI for appointment businesses</span>
+        <h1>Turn every message into a <span class="hl">booked appointment</span></h1>
+        <p>I build AI chatbots and voice agents that answer clients instantly, book appointments around the clock, and cut no-shows — custom-built for salons, dental offices, and service businesses.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="document.querySelector('.cta').scrollIntoView({behavior:'smooth'})">Book a Demo →</button>
+          <button class="btn btn-neon" onclick="document.getElementById('userInput').focus()">Try the Chatbot</button>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="num"><span>24/7</span></div>
+            <div class="label">Always answering</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">−<span>35%</span></div>
+            <div class="label">Fewer no-shows</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num"><span>&lt;5s</span></div>
+            <div class="label">Response time</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chatbot">
+        <div class="chatbot-header">
+          <div class="ava">🤖</div>
+          <div class="meta">
+            OffHours24 Assistant
+            <small><span class="status-dot"></span> Online now</small>
+          </div>
+        </div>
+        <div class="chatbot-messages" id="messages">
+          <div class="msg bot">
+            <div class="msg-ava">AI</div>
+            <div class="msg-bubble">Hi there! 👋 I can help you book an appointment. What service are you looking for today?</div>
+          </div>
+        </div>
+        <div class="chatbot-input">
+          <input type="text" id="userInput" placeholder="Type a message…" onkeypress="handleMessage(event)">
+          <button onclick="handleMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHO IT'S FOR -->
+  <section class="alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Who it's for</span>
+        <h2>Built for appointment-based businesses</h2>
+        <p>If your business runs on bookings, my AI agents fit right in.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card"><div class="ico">💇</div><h3>Hair & Beauty Salons</h3><p>Book cuts, colors, and consultations automatically — and upsell add-on services in conversation.</p></div>
+        <div class="card"><div class="ico">🦷</div><h3>Dental Offices</h3><p>Schedule check-ups, handle emergency inquiries, and send reminders without tying up front desk staff.</p></div>
+        <div class="card"><div class="ico">💆</div><h3>Spas & Wellness</h3><p>Manage massage, treatment, and consultation bookings with personalized recommendations.</p></div>
+        <div class="card"><div class="ico">💪</div><h3>Fitness & Studios</h3><p>Handle class sign-ups, cancellations, and waitlists so no spot ever goes empty.</p></div>
+        <div class="card"><div class="ico">🏥</div><h3>Clinics & Practices</h3><p>Triage requests, collect intake info, and route patients to the right appointment slot.</p></div>
+        <div class="card"><div class="ico">✂️</div><h3>Barbershops</h3><p>Let clients book their regular barber in seconds — by chat or voice, day or night.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Why work with me</span>
+        <h2>Not a template — a system built around you</h2>
+        <p>What sets these AI agents apart from generic bots.</p>
+      </div>
+      <div class="grid grid-2">
+        <div class="feature"><div class="ico">⚡</div><div><h4>Live in days, not months</h4><p>No drawn-out setup. I handle the build and integration so you're up and running fast.</p></div></div>
+        <div class="feature"><div class="ico">🎯</div><div><h4>Trained on your business</h4><p>Your services, pricing, tone, and policies — the agent speaks like part of your team.</p></div></div>
+        <div class="feature"><div class="ico">🔗</div><div><h4>Fits your existing tools</h4><p>Connects to your calendar, booking system, and CRM. No ripping out what already works.</p></div></div>
+        <div class="feature"><div class="ico">💬</div><div><h4>Sounds genuinely human</h4><p>Natural conversations that build trust — clients often can't tell it's AI.</p></div></div>
+        <div class="feature"><div class="ico">📞</div><div><h4>Chat and voice</h4><p>Deploy a website chatbot, an AI phone agent, or both for full coverage.</p></div></div>
+        <div class="feature"><div class="ico">🛡️</div><div><h4>Ongoing optimization</h4><p>I monitor and refine your agent over time so it keeps getting better at converting.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS / BENEFITS -->
+  <section class="alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">How it works</span>
+        <h2>What you get once it's running</h2>
+        <p>The everyday wins your AI agent delivers.</p>
+      </div>
+      <div class="grid grid-2">
+        <div class="benefit"><div class="chk">✓</div><div><h4>Smart conversations</h4><p>Understands context, answers FAQs, and qualifies leads without feeling robotic.</p></div></div>
+        <div class="benefit"><div class="chk">✓</div><div><h4>Real-time booking</h4><p>Clients confirm appointments right inside the chat or call — no back-and-forth.</p></div></div>
+        <div class="benefit"><div class="chk">✓</div><div><h4>Always available</h4><p>Captures bookings at 2am, on weekends, and while you're with other clients.</p></div></div>
+        <div class="benefit"><div class="chk">✓</div><div><h4>Fewer no-shows</h4><p>Automated reminders and confirmations keep your calendar full and on time.</p></div></div>
+        <div class="benefit"><div class="chk">✓</div><div><h4>More revenue</h4><p>Upsells services and captures leads you'd otherwise lose to a missed call.</p></div></div>
+        <div class="benefit"><div class="chk">✓</div><div><h4>Less admin</h4><p>Frees your team from repetitive scheduling so they focus on clients in the chair.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ONBOARDING -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Getting started</span>
+        <h2>Your onboarding in 5 simple steps</h2>
+        <p>A clear, hands-off process — I do the heavy lifting.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><h4>Discovery call</h4><p>We map out your services, workflows, and how clients reach you today.</p></div>
+        <div class="step"><div class="num">2</div><h4>Build & train</h4><p>I train the AI on your business info, tone, pricing, and booking rules.</p></div>
+        <div class="step"><div class="num">3</div><h4>Integrate</h4><p>Connect your calendar, booking system, phone line, and website.</p></div>
+        <div class="step"><div class="num">4</div><h4>Test & refine</h4><p>We run real scenarios together and fine-tune until it's flawless.</p></div>
+        <div class="step"><div class="num">5</div><h4>Launch & support</h4><p>Go live with ongoing monitoring so results only improve over time.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Client results</span>
+        <h2>What people are saying</h2>
+        <p>Real outcomes from businesses like yours.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="quote">
+          <div class="stars">★★★★★</div>
+          <p class="text">"It completely changed how we handle bookings. No more missed calls, and clients love the instant replies. We've seen a 40% jump in appointments."</p>
+          <div class="who"><div class="av">SJ</div><div><h5>Sarah Johnson</h5><p>Owner, Bliss Salon</p></div></div>
+        </div>
+        <div class="quote">
+          <div class="stars">★★★★★</div>
+          <p class="text">"The voice agent handles our confirmations perfectly. Patients love the professional experience, and it's saved us hours of admin every week."</p>
+          <div class="who"><div class="av">MC</div><div><h5>Dr. Michael Chen</h5><p>Bright Smile Dental</p></div></div>
+        </div>
+        <div class="quote">
+          <div class="stars">★★★★★</div>
+          <p class="text">"We were skeptical about AI, but setup was smooth and the results speak for themselves. No-shows dropped 35% in the first month."</p>
+          <div class="who"><div class="av">EM</div><div><h5>Emma Martinez</h5><p>Manager, FitPulse Studio</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h2>Ready to fill your calendar on autopilot?</h2>
+    <p>Book a free demo and see your own AI chatbot or voice agent handling real bookings in minutes.</p>
+    <button class="btn btn-neon" onclick="alert('Contact form would open here!')">Book Your Free Demo →</button>
+  </div>
+
+  <footer>© 2026 <strong>OffHours24</strong> — AI chatbots & voice agents for appointment businesses.</footer>
+
+  <script>
+    /* ===== Theme toggle ===== */
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    function currentIsDark() {
+      // Dark-first: no explicit attribute means dark
+      return root.getAttribute('data-theme') !== 'light';
+    }
+    function refreshIcon() { toggle.textContent = currentIsDark() ? '☀️' : '🌙'; }
+    toggle.addEventListener('click', () => {
+      root.setAttribute('data-theme', currentIsDark() ? 'light' : 'dark');
+      refreshIcon();
+    });
+    refreshIcon();
+
+    /* ===== Chatbot demo ===== */
+    const responses = [
+      "Great choice! We have openings this week. Which day works best for you?",
+      "Perfect 👍 I've got a 2:00 PM and a 4:30 PM available. Which do you prefer?",
+      "Almost done! Can I grab your name and number to lock it in?",
+      "You're all set! ✅ Your appointment is confirmed. We'll text you a reminder the day before.",
+      "Happy to help! Is there anything else you'd like to book today?"
+    ];
+    let idx = 0;
+
+    function addMessage(text, who) {
+      const wrap = document.getElementById('messages');
+      const el = document.createElement('div');
+      el.className = 'msg ' + who;
+      el.innerHTML = `<div class="msg-ava">${who === 'bot' ? 'AI' : 'You'}</div><div class="msg-bubble">${text}</div>`;
+      wrap.appendChild(el);
+      wrap.scrollTop = wrap.scrollHeight;
+    }
+
+    function showTyping() {
+      const wrap = document.getElementById('messages');
+      const el = document.createElement('div');
+      el.className = 'msg bot';
+      el.id = 'typing';
+      el.innerHTML = `<div class="msg-ava">AI</div><div class="msg-bubble typing"><span></span><span></span><span></span></div>`;
+      wrap.appendChild(el);
+      wrap.scrollTop = wrap.scrollHeight;
+    }
+
+    function handleMessage(event) {
+      if (event && event.key !== 'Enter') return;
+      const input = document.getElementById('userInput');
+      if (input.value.trim() === '') return;
+      addMessage(input.value.replace(/</g, '&lt;'), 'user');
+      input.value = '';
+      showTyping();
+      setTimeout(() => {
+        const t = document.getElementById('typing');
+        if (t) t.remove();
+        addMessage(responses[idx % responses.length], 'bot');
+        idx++;
+      }, 900);
+    }
+  </script>
+</body>
+</html>
