@@ -246,7 +246,8 @@
     .foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; color: var(--ink-faint); font-size: 0.9rem; }
 
     /* ---------- Floating chatbot demo ---------- */
-    .chat-widget { position: fixed; right: 20px; bottom: 20px; z-index: 60; }
+    /* Demo text-chat sits bottom-LEFT so it doesn't clash with the ElevenLabs voice widget (bottom-right) */
+    .chat-widget { position: fixed; left: 20px; bottom: 20px; z-index: 60; }
     .chat-launcher {
       width: 60px; height: 60px; border-radius: 50%; border: none; cursor: pointer;
       background: var(--indigo); color: #fff; display: grid; place-items: center;
@@ -256,7 +257,7 @@
     .chat-launcher svg { width: 28px; height: 28px; }
     .chat-launcher .badge { position: absolute; top: -2px; right: -2px; width: 16px; height: 16px; background: var(--emerald); border: 2px solid #fff; border-radius: 50%; }
     .chat-window {
-      position: absolute; bottom: 76px; right: 0; width: 360px; max-width: calc(100vw - 40px); height: 480px; max-height: calc(100vh - 120px);
+      position: absolute; bottom: 76px; left: 0; width: 360px; max-width: calc(100vw - 40px); height: 480px; max-height: calc(100vh - 120px);
       background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
       display: flex; flex-direction: column; box-shadow: var(--shadow-lg);
       opacity: 0; transform: translateY(12px) scale(0.98); pointer-events: none; transition: opacity .22s ease, transform .22s ease;
@@ -286,7 +287,7 @@
     .chat-input input:focus { outline: none; border-color: var(--indigo); box-shadow: 0 0 0 3px rgba(79,70,229,0.12); }
     .chat-input button { border: none; background: var(--indigo); color: #fff; border-radius: 9px; width: 42px; cursor: pointer; font-size: 1rem; transition: background .2s ease; }
     .chat-input button:hover { background: var(--indigo-dark); }
-    @media (max-width: 560px) { .chat-widget { right: 14px; bottom: 14px; } .chat-window { height: 70vh; } }
+    @media (max-width: 560px) { .chat-widget { left: 14px; bottom: 14px; } .chat-window { height: 70vh; } }
 
     /* Reveal animation — progressive enhancement: content is hidden ONLY when JS is active,
        so if JS is blocked/not run the page still shows fully. */
@@ -571,6 +572,10 @@
       </div>
     </div>
   </div>
+
+  <!-- ===================== ELEVENLABS VOICE AGENT (bottom-right) ===================== -->
+  <elevenlabs-convai agent-id="agent_2101m1402bfhe8dtms2bavdy4398"></elevenlabs-convai>
+  <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 
   <!-- ===================== FOOTER (not a content section) ===================== -->
   <footer>
