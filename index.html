@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Offhours24 — AI Automation Agency</title>
-  <meta name="description" content="Offhours24 helps businesses automate repetitive work, respond to leads instantly, and save hours every week with AI automation." />
+  <title>Offhours24 — AI Front Desk for Clinics</title>
+  <meta name="description" content="Offhours24 gives clinics a 24/7 AI voice agent and chatbot that answers every call and message, books appointments into your calendar, and cuts no-shows." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" />
@@ -114,7 +114,7 @@
     .theme-btn { background: none; border: 1px solid var(--border); border-radius: 8px; width: 40px; height: 40px; cursor: pointer; font-size: 1.05rem; color: var(--ink); display: grid; place-items: center; margin-left: 0.75rem; transition: border-color .2s ease, transform .2s ease; }
     .theme-btn:hover { border-color: var(--indigo); transform: translateY(-1px); }
 
-    /* ---------- Hero ---------- */
+    /* ---------- Hero (UNCHANGED) ---------- */
     .hero { position: relative; padding: 5rem 0 4.5rem; background:
       radial-gradient(60% 60% at 80% 0%, rgba(16,185,129,0.06), transparent 70%),
       radial-gradient(50% 50% at 0% 20%, rgba(79,70,229,0.07), transparent 70%);
@@ -140,7 +140,6 @@
     .built-for ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .built-for li { font-size: 0.85rem; font-weight: 500; color: var(--ink-soft); background: var(--bg-soft); border: 1px solid var(--border); border-radius: 999px; padding: 0.35rem 0.8rem; }
 
-    /* YouTube placeholder */
     .video-wrap {
       position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius);
       overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border);
@@ -163,53 +162,78 @@
 
     /* ---------- Section shells ---------- */
     section { padding: 5.5rem 0; }
-    .section-head { text-align: center; max-width: 680px; margin: 0 auto 3rem; }
+    section.alt { background: var(--bg-soft); }
+    .section-head { text-align: center; max-width: 700px; margin: 0 auto 3rem; }
     .kicker { display: inline-block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--emerald-dark); margin-bottom: 0.8rem; }
     .section-head h2 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); margin-bottom: 0.9rem; }
     .section-head p { font-size: 1.1rem; }
 
+    /* Benefits / Why */
+    .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .benefit-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.8rem; box-shadow: var(--shadow-sm); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+    .benefit-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: rgba(79,70,229,0.35); }
+    .benefit-card .ico { width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center; background: var(--bg-tint); color: var(--indigo); font-size: 1.5rem; margin-bottom: 1.1rem; }
+    .benefit-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+    .benefit-card p { font-size: 0.95rem; }
+
     /* Problem */
-    #problem { background: var(--bg-soft); }
     .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
     .problem-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow-sm); }
     .problem-card .ico { width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center; background: #FEF2F2; color: #DC2626; font-size: 1.5rem; margin-bottom: 1.1rem; }
     .problem-card h3 { font-size: 1.2rem; margin-bottom: 0.6rem; }
     .problem-card p { font-size: 0.97rem; }
 
-    /* Solution */
-    .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 4.5rem; }
-    .benefit-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.8rem; box-shadow: var(--shadow-sm); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
-    .benefit-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: rgba(79,70,229,0.35); }
-    .benefit-card .ico { width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center; background: var(--bg-tint); color: var(--indigo); font-size: 1.5rem; margin-bottom: 1.1rem; }
-    .benefit-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
-    .benefit-card p { font-size: 0.95rem; }
-    .benefit-card .num { font-family: 'Sora', sans-serif; font-weight: 800; color: var(--ink-faint); font-size: 0.9rem; }
+    /* Integrations strip */
+    .integrations { padding: 3rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg); }
+    .int-title { text-align: center; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); font-weight: 700; margin-bottom: 1.6rem; }
+    .int-marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+    .int-track { display: flex; gap: 0.8rem; width: max-content; animation: intScroll 30s linear infinite; }
+    .int-marquee:hover .int-track { animation-play-state: paused; }
+    @keyframes intScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .int-pill { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 0.6rem 1.15rem; font-weight: 600; font-size: 0.95rem; color: var(--ink); box-shadow: var(--shadow-sm); white-space: nowrap; flex-shrink: 0; }
+    .int-pill .ic { font-size: 1.05rem; }
+    @media (prefers-reduced-motion: reduce) { .int-track { animation: none; flex-wrap: wrap; justify-content: center; } }
 
-    /* Booking + form split */
+    /* Live Demo */
+    .demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
+    .demo-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.2rem; box-shadow: var(--shadow-sm); text-align: center; }
+    .demo-card .ico { font-size: 2.1rem; margin-bottom: 0.8rem; }
+    .demo-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .demo-card p { font-size: 0.95rem; margin-bottom: 1.3rem; }
+    .demo-pulse { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600; color: var(--emerald-dark); margin-bottom: 1.6rem; }
+    .demo-pulse .live { width: 9px; height: 9px; border-radius: 50%; background: var(--emerald); box-shadow: 0 0 0 rgba(16,185,129,0.6); animation: livePulse 1.8s infinite; }
+    @keyframes livePulse { 0%{box-shadow:0 0 0 0 rgba(16,185,129,0.5);} 70%{box-shadow:0 0 0 10px rgba(16,185,129,0);} 100%{box-shadow:0 0 0 0 rgba(16,185,129,0);} }
+
+    /* How it works — steps */
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .step { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.8rem; box-shadow: var(--shadow-sm); }
+    .step .step-num { width: 40px; height: 40px; border-radius: 11px; background: linear-gradient(135deg, var(--indigo), var(--emerald)); color: #fff; display: grid; place-items: center; font-family: 'Sora', sans-serif; font-weight: 800; margin-bottom: 1rem; }
+    .step h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+    .step p { font-size: 0.92rem; }
+
+    /* Booking */
+    .book-wrap { max-width: 860px; margin: 0 auto; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); }
+    .book-wrap iframe { width: 100%; height: 660px; border: 0; display: block; }
+
+    /* FAQ */
+    .faq { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.8rem; }
+    .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .faq-q { width: 100%; text-align: left; background: none; border: none; cursor: pointer; padding: 1.15rem 1.3rem; font-family: 'Sora', sans-serif; font-weight: 600; font-size: 1rem; color: var(--ink); display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .faq-q .plus { color: var(--indigo); font-size: 1.4rem; transition: transform .2s ease; flex-shrink: 0; line-height: 1; }
+    .faq-item.open .faq-q .plus { transform: rotate(45deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .25s ease; }
+    .faq-a p { padding: 0 1.3rem 1.2rem; font-size: 0.95rem; }
+    .faq-item.open .faq-a { max-height: 320px; }
+
+    /* Panels / form */
     .engage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: stretch; }
     .panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow-sm); }
     .panel h3 { font-size: 1.35rem; margin-bottom: 0.4rem; }
     .panel .lead { font-size: 0.98rem; margin-bottom: 1.4rem; }
+    .info-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .info-list li { display: flex; gap: 0.9rem; align-items: flex-start; font-size: 0.96rem; color: var(--ink-soft); }
+    .info-list .ic { width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0; background: var(--bg-tint); color: var(--indigo); display: grid; place-items: center; font-size: 1.1rem; }
 
-    /* Booking card (attractive booking panel that opens the real Calendly) */
-    .booking-card { display: flex; flex-direction: column; gap: 1.5rem; }
-    .booking-cal { background: linear-gradient(140deg, var(--indigo), var(--indigo-dark)); border-radius: 14px; padding: 1.3rem 1.4rem; color: #fff; box-shadow: var(--shadow-md); }
-    .cal-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-    .cal-month { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.02rem; }
-    .cal-nav { display: flex; gap: 0.4rem; }
-    .cal-nav i { width: 26px; height: 26px; border-radius: 7px; display: grid; place-items: center; background: rgba(255,255,255,0.14); font-style: normal; font-size: 0.95rem; }
-    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
-    .cal-grid span { aspect-ratio: 1; display: grid; place-items: center; font-size: 0.82rem; border-radius: 8px; color: rgba(255,255,255,0.9); }
-    .cal-grid .cal-h { color: rgba(255,255,255,0.55); font-size: 0.7rem; font-weight: 700; }
-    .cal-grid .cal-muted { color: rgba(255,255,255,0.32); }
-    .cal-grid .cal-free { background: rgba(16,185,129,0.22); color: #EAFFF6; font-weight: 600; }
-    .cal-grid .cal-pick { background: var(--emerald); color: #05271C; font-weight: 800; box-shadow: 0 4px 14px rgba(16,185,129,0.45); }
-    .booking-perks { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1.4rem; }
-    .booking-perks li { position: relative; padding-left: 1.75rem; font-size: 0.96rem; color: var(--ink-soft); }
-    .booking-perks li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 20px; height: 20px; border-radius: 50%; background: #ECFDF5; color: var(--emerald-dark); font-size: 0.72rem; font-weight: 800; display: grid; place-items: center; }
-    .booking-note { text-align: center; font-size: 0.8rem; color: var(--ink-faint); margin-top: 0.75rem; }
-
-    /* Form */
     .field { margin-bottom: 1.1rem; }
     .field label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
     .field label .req { color: #DC2626; }
@@ -219,7 +243,7 @@
       padding: 0.8rem 1rem; border: 1px solid var(--border); border-radius: 9px; background: var(--input-bg); transition: border-color .2s ease, box-shadow .2s ease;
     }
     .field input:focus, .field textarea:focus { outline: none; border-color: var(--indigo); box-shadow: 0 0 0 3px rgba(79,70,229,0.12); }
-    .field textarea { resize: vertical; min-height: 120px; }
+    .field textarea { resize: vertical; min-height: 110px; }
     .field .err { display: none; color: #DC2626; font-size: 0.82rem; margin-top: 0.35rem; }
     .field.invalid input, .field.invalid textarea { border-color: #DC2626; }
     .field.invalid .err { display: block; }
@@ -233,7 +257,7 @@
 
     /* Final CTA */
     .final-cta {
-      margin-top: 4.5rem; text-align: center; background: linear-gradient(135deg, var(--indigo), var(--indigo-dark));
+      text-align: center; background: linear-gradient(135deg, var(--indigo), var(--indigo-dark));
       color: #fff; border-radius: 20px; padding: 3.5rem 1.5rem; position: relative; overflow: hidden;
     }
     .final-cta::before { content: ""; position: absolute; top: -40%; right: -10%; width: 45%; height: 160%; background: radial-gradient(circle, rgba(16,185,129,0.25), transparent 65%); }
@@ -241,12 +265,20 @@
     .final-cta p { color: rgba(255,255,255,0.9); position: relative; margin-bottom: 1.8rem; max-width: 520px; margin-left: auto; margin-right: auto; }
     .final-cta .btn { position: relative; }
 
-    /* Footer (not a content section) */
-    footer { border-top: 1px solid var(--border); padding: 2rem 0; }
-    .foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; color: var(--ink-faint); font-size: 0.9rem; }
+    footer { border-top: 1px solid var(--border); background: var(--bg-soft); }
+    .footer-main { display: grid; grid-template-columns: 1.5fr 1fr 1.4fr; gap: 2.5rem; padding: 3.5rem 0 2.5rem; }
+    .footer-brand .brand { margin-bottom: 0.5rem; }
+    .footer-brand .tag { color: var(--ink-faint); font-size: 0.88rem; margin-bottom: 1rem; font-weight: 500; }
+    .footer-brand p { font-size: 0.92rem; max-width: 340px; }
+    .footer-col h4 { font-family: 'Sora', sans-serif; font-size: 0.95rem; color: var(--ink); margin-bottom: 1.1rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .footer-links a { color: var(--ink-soft); font-size: 0.95rem; }
+    .footer-links a:hover { color: var(--indigo); }
+    .footer-cta p { font-size: 0.92rem; margin-bottom: 1.3rem; max-width: 320px; }
+    .footer-bottom { border-top: 1px solid var(--border); padding: 1.5rem 0; text-align: center; color: var(--ink-faint); font-size: 0.88rem; }
+    @media (max-width: 900px) { .footer-main { grid-template-columns: 1fr; gap: 2rem; } }
 
     /* ---------- Floating chatbot demo ---------- */
-    /* Demo text-chat sits bottom-LEFT so it doesn't clash with the ElevenLabs voice widget (bottom-right) */
     .chat-widget { position: fixed; left: 20px; bottom: 20px; z-index: 60; }
     .chat-launcher {
       width: 60px; height: 60px; border-radius: 50%; border: none; cursor: pointer;
@@ -289,8 +321,7 @@
     .chat-input button:hover { background: var(--indigo-dark); }
     @media (max-width: 560px) { .chat-widget { left: 14px; bottom: 14px; } .chat-window { height: 70vh; } }
 
-    /* Reveal animation — progressive enhancement: content is hidden ONLY when JS is active,
-       so if JS is blocked/not run the page still shows fully. */
+    /* Reveal animation */
     .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
     .js .reveal.in { opacity: 1; transform: none; }
     @media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; transition: none; } }
@@ -298,8 +329,9 @@
     /* ---------- Responsive ---------- */
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .problem-grid, .benefits-grid { grid-template-columns: 1fr; }
+      .benefits-grid, .problem-grid, .steps-grid, .demo-grid { grid-template-columns: 1fr; }
       .engage-grid { grid-template-columns: 1fr; }
+      .book-wrap iframe { height: 600px; }
       .nav-links { display: none; }
       .menu-btn { display: inline-flex; }
       .nav-links.open {
@@ -323,9 +355,11 @@
     <div class="container nav">
       <a href="#top" class="brand"><span class="mark">🌙</span>Offhours<span class="accent">24</span></a>
       <nav class="nav-links" id="navLinks">
-        <a class="link" href="#problem">Problem</a>
-        <a class="link" href="#solution">Solution</a>
-        <a class="btn btn-primary nav-cta" href="https://calendly.com/khanowais0340/30min" target="_blank" rel="noopener">Book a Call</a>
+        <a class="link" href="#services">Services</a>
+        <a class="link" href="#demo">Demo</a>
+        <a class="link" href="#how">How it works</a>
+        <a class="link" href="#faq">FAQ</a>
+        <a class="btn btn-primary nav-cta" href="#book">Book Appointment</a>
       </nav>
       <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
       <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">☰</button>
@@ -334,15 +368,15 @@
 
   <main id="top">
 
-    <!-- ===================== SECTION 1: HERO ===================== -->
+    <!-- ===================== HERO (UNCHANGED) ===================== -->
     <section class="hero" aria-label="Hero">
       <div class="container hero-grid">
         <div class="hero-copy reveal">
-          <span class="eyebrow"><span class="dot"></span> AI Automation for Appointment Businesses</span>
-          <h1>While you're with one client, <span class="hl">Offhours24 books the next</span></h1>
-          <p class="sub">Offhours24 builds AI automation systems for appointment-based businesses — salons, dental offices, clinics, spas and more — that handle repetitive work, respond to every lead instantly, and keep your bookings organized, so you can do more without hiring more.</p>
+          <span class="eyebrow"><span class="dot"></span> AI Front Desk for Clinics</span>
+          <h1>Front desk busy or closed? <span class="hl">Appointments still get booked.</span></h1>
+          <p class="sub">The receptionist that never sleeps — every call answered, every chat replied to, every patient booked. Even at 2am.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary btn-lg" href="https://calendly.com/khanowais0340/30min" target="_blank" rel="noopener">Book a Call</a>
+            <a class="btn btn-primary btn-lg" href="#book">Book Appointment</a>
             <a class="btn btn-ghost btn-lg" href="#problem">Learn More</a>
           </div>
           <div class="trust">
@@ -350,19 +384,18 @@
             Trusted by growing appointment-based businesses
           </div>
           <div class="built-for">
-            <span class="bf-label">Built for</span>
+            <span class="bf-label">Built for clinics</span>
             <ul>
-              <li>💇 Salons</li>
-              <li>🦷 Dental offices</li>
-              <li>🏥 Clinics</li>
-              <li>💆 Spas &amp; med-spas</li>
-              <li>💪 Fitness studios</li>
-              <li>✂️ Barbershops</li>
+              <li>🦷 Dental clinics</li>
+              <li>🩺 Medical clinics</li>
+              <li>💉 Aesthetic &amp; med-spas</li>
+              <li>🧴 Dermatology</li>
+              <li>🦴 Physiotherapy</li>
+              <li>👁️ Eye &amp; optometry</li>
             </ul>
           </div>
         </div>
 
-        <!-- YouTube placeholder — replace the .video-wrap contents with your <iframe> later -->
         <div class="video-wrap reveal" id="videoPlaceholder">
           <!--
             TO ADD YOUR REAL VIDEO LATER:
@@ -383,130 +416,234 @@
       </div>
     </section>
 
-    <!-- ===================== SECTION 2: PROBLEM ===================== -->
-    <section id="problem" aria-label="The problem">
+    <!-- ===================== WHY / BENEFITS (clinics) ===================== -->
+    <section class="alt" aria-label="Why Offhours24">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="kicker">Why clinics choose us</span>
+          <h2>A front desk that never clocks out</h2>
+          <p>Offhours24 gives your clinic an AI voice agent and chatbot that greet every patient, answer their questions, and fill your calendar — even when your team is with someone or gone for the day.</p>
+        </div>
+        <div class="benefits-grid">
+          <div class="benefit-card reveal"><div class="ico">🕐</div><h3>Always answering</h3><p>Every call and message is picked up in seconds — mornings, evenings, weekends, and holidays.</p></div>
+          <div class="benefit-card reveal"><div class="ico">🗣️</div><h3>Sounds human</h3><p>Natural, friendly conversations that put patients at ease — most can't tell it's AI.</p></div>
+          <div class="benefit-card reveal"><div class="ico">📅</div><h3>Books instantly</h3><p>Checks your real availability and reserves the appointment right there in the conversation.</p></div>
+          <div class="benefit-card reveal"><div class="ico">🔔</div><h3>Fewer no-shows</h3><p>Automatic confirmations and reminders keep your schedule full and patients on time.</p></div>
+          <div class="benefit-card reveal"><div class="ico">🔁</div><h3>Recovers lost patients</h3><p>Missed calls and after-hours messages become booked appointments instead of lost business.</p></div>
+          <div class="benefit-card reveal"><div class="ico">🔗</div><h3>Fits your setup</h3><p>Connects to the calendar and tools your clinic already uses — no rip-and-replace.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SERVICES ===================== -->
+    <section id="services" aria-label="Our services">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="kicker">What we handle</span>
+          <h2>Everything your front desk does — automated</h2>
+          <p>From the first hello to a booked, confirmed appointment, Offhours24 covers the work that keeps your clinic running.</p>
+        </div>
+        <div class="benefits-grid">
+          <div class="benefit-card reveal"><div class="ico">📞</div><h3>AI voice &amp; chat reception</h3><p>An AI receptionist answers every call and website message instantly, day or night.</p></div>
+          <div class="benefit-card reveal"><div class="ico">📅</div><h3>Reservations &amp; bookings</h3><p>Checks live availability and books appointments straight into your calendar.</p></div>
+          <div class="benefit-card reveal"><div class="ico">💬</div><h3>Guest communication</h3><p>Confirmations, reminders, and follow-ups sent automatically so no one falls through the cracks.</p></div>
+          <div class="benefit-card reveal"><div class="ico">🎧</div><h3>Customer support</h3><p>Answers common patient questions about hours, services, pricing, and location — around the clock.</p></div>
+          <div class="benefit-card reveal"><div class="ico">🎯</div><h3>Lead capture &amp; qualification</h3><p>Greets every new enquiry, gathers the details, and turns interest into booked appointments.</p></div>
+          <div class="benefit-card reveal"><div class="ico">⚙️</div><h3>CRM &amp; workflow automation</h3><p>Logs every interaction and connects your tools so your workflow runs without manual work.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== INTEGRATIONS ===================== -->
+    <div class="integrations" aria-label="Integrations">
+      <div class="container">
+        <div class="int-title reveal">Works with the tools you already use</div>
+        <div class="int-marquee reveal">
+          <div class="int-track">
+            <span class="int-pill"><span class="ic">💬</span> WhatsApp</span>
+            <span class="int-pill"><span class="ic">🤖</span> OpenAI</span>
+            <span class="int-pill"><span class="ic">🔗</span> n8n</span>
+            <span class="int-pill"><span class="ic">🎙️</span> ElevenLabs</span>            <span class="int-pill"><span class="ic">📅</span> Google Calendar</span>
+            <span class="int-pill"><span class="ic">✉️</span> Gmail</span>
+            <span class="int-pill"><span class="ic">📧</span> Outlook</span>
+            <span class="int-pill"><span class="ic">🧲</span> HubSpot</span>
+            <span class="int-pill"><span class="ic">☁️</span> Salesforce</span>
+            <span class="int-pill"><span class="ic">🚀</span> GoHighLevel</span>
+            <span class="int-pill"><span class="ic">📞</span> Twilio</span>
+            <!-- duplicate set for seamless marquee loop -->
+            <span class="int-pill"><span class="ic">💬</span> WhatsApp</span>
+            <span class="int-pill"><span class="ic">🤖</span> OpenAI</span>
+            <span class="int-pill"><span class="ic">🔗</span> n8n</span>
+            <span class="int-pill"><span class="ic">🎙️</span> ElevenLabs</span>            <span class="int-pill"><span class="ic">📅</span> Google Calendar</span>
+            <span class="int-pill"><span class="ic">✉️</span> Gmail</span>
+            <span class="int-pill"><span class="ic">📧</span> Outlook</span>
+            <span class="int-pill"><span class="ic">🧲</span> HubSpot</span>
+            <span class="int-pill"><span class="ic">☁️</span> Salesforce</span>
+            <span class="int-pill"><span class="ic">🚀</span> GoHighLevel</span>
+            <span class="int-pill"><span class="ic">📞</span> Twilio</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== PROBLEMS (clinics) ===================== -->
+    <section id="problem" class="alt" aria-label="Problems we solve">
       <div class="container">
         <div class="section-head reveal">
           <span class="kicker">Sound familiar?</span>
-          <h2>Your business is busy — but too much of it runs on manual effort</h2>
-          <p>Most growing businesses aren't short on opportunities. They're short on time, and the day disappears into work a system could handle.</p>
+          <h2>The front desk can't catch everything</h2>
+          <p>Even a great team can only answer one patient at a time — and after hours, no one's there at all.</p>
         </div>
         <div class="problem-grid">
-          <div class="problem-card reveal">
-            <div class="ico">⏳</div>
-            <h3>Too much manual work</h3>
-            <p>You and your team spend hours every week on repetitive tasks — data entry, scheduling, sending the same replies — instead of the work that actually grows the business.</p>
+          <div class="problem-card reveal"><div class="ico">📵</div><h3>Missed calls after hours</h3><p>Patients call in the evening or on weekends, reach voicemail, and simply book with another clinic instead.</p></div>
+          <div class="problem-card reveal"><div class="ico">💸</div><h3>Lost appointments</h3><p>When the line is busy or the desk is swamped, every unanswered enquiry is revenue quietly walking out the door.</p></div>
+          <div class="problem-card reveal"><div class="ico">😮‍💨</div><h3>An overwhelmed team</h3><p>Staff spend the day repeating hours, prices, and directions instead of caring for the patients in front of them.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== LIVE DEMO ===================== -->
+    <section id="demo" class="alt" aria-label="Live demo">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="demo-pulse"><span class="live"></span> Live right now</span>
+          <h2>Not a video — the real thing, running in your browser</h2>
+          <p>The voice agent and 24/7 chatbot on this page aren't recordings or scripts. Talk to them, ask anything a patient might. Then picture the same assistant answering your clinic's calls and messages — in your voice, at every hour.</p>
+        </div>
+        <div class="demo-grid">
+          <div class="demo-card reveal">
+            <div class="ico">💬</div>
+            <h3>Chat with the assistant</h3>
+            <p>Open the chat and ask about hours, services, or booking an appointment — just like a patient would.</p>
+            <button class="btn btn-primary" id="demoChatBtn">Open the chatbot →</button>
           </div>
-          <div class="problem-card reveal">
-            <div class="ico">📉</div>
-            <h3>Leads slip through the cracks</h3>
-            <p>A prospect messages at 9pm and hears back the next afternoon. By then they've booked with someone faster. Slow responses quietly cost you real revenue.</p>
-          </div>
-          <div class="problem-card reveal">
-            <div class="ico">🧩</div>
-            <h3>Everything lives in different places</h3>
-            <p>Leads in your inbox, follow-ups on sticky notes, tasks in your head. Without one connected process, things get missed and nothing feels under control.</p>
+          <div class="demo-card reveal">
+            <div class="ico">🎙️</div>
+            <h3>Talk to the voice agent</h3>
+            <p>Tap the voice button in the bottom-right corner and have a real, out-loud conversation with it.</p>
+            <a class="btn btn-ghost" href="#" onclick="return false;">Look bottom-right ↘</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== SECTION 3: SOLUTION ===================== -->
-    <section id="solution" aria-label="The solution">
+    <!-- ===================== HOW IT WORKS ===================== -->
+    <section id="how" aria-label="How it works">
       <div class="container">
         <div class="section-head reveal">
-          <span class="kicker">The Offhours24 way</span>
-          <h2>Put the repetitive work on autopilot with AI automation</h2>
-          <p>We design and build AI-powered systems around how your appointment-based business already works — so leads get handled, bookings get filled, tasks run themselves, and your team focuses on clients.</p>
+          <span class="kicker">How it works</span>
+          <h2>From first hello to booked appointment</h2>
+          <p>A patient reaches out and, moments later, they're on your calendar — no staff required.</p>
         </div>
+        <div class="steps-grid">
+          <div class="step reveal"><div class="step-num">1</div><h3>Patient reaches out</h3><p>They call your clinic or message the website chat — any time of day or night.</p></div>
+          <div class="step reveal"><div class="step-num">2</div><h3>The AI answers instantly</h3><p>No ringing, no hold music, no voicemail — a warm greeting every single time.</p></div>
+          <div class="step reveal"><div class="step-num">3</div><h3>It understands &amp; helps</h3><p>Answers questions about services, hours, and location, then guides them to book.</p></div>
+          <div class="step reveal"><div class="step-num">4</div><h3>It books the appointment</h3><p>Checks your real availability and reserves the slot right in the conversation.</p></div>
+          <div class="step reveal"><div class="step-num">5</div><h3>Confirmation sent</h3><p>The patient instantly receives a confirmation email with their appointment details.</p></div>
+          <div class="step reveal"><div class="step-num">6</div><h3>Synced &amp; logged</h3><p>The booking lands on your calendar and in your records — you're notified straight away.</p></div>
+        </div>
+      </div>
+    </section>
 
-        <!-- 5 BENEFITS -->
-        <div class="benefits-grid">
-          <div class="benefit-card reveal">
-            <div class="ico">⚡</div>
-            <span class="num">01</span>
-            <h3>Save time</h3>
-            <p>Automate repetitive tasks and reclaim hours every week that used to disappear into manual busywork.</p>
+    <!-- ===================== BOOK AN APPOINTMENT (live, powered by Apps Script) ===================== -->
+    <section id="book" class="alt" aria-label="Book an appointment">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="kicker">Book in seconds</span>
+          <h2>Pick a time that suits you</h2>
+          <p>Choose a day and an open slot below — it books straight into our live calendar and you'll get an instant confirmation email.</p>
+        </div>
+        <div class="book-wrap reveal">
+          <!--
+            LIVE BOOKING CALENDAR — powered by your Google Apps Script (no exposed keys).
+            It loads the booking page your Apps Script serves at ?page=book.
+            (Requires the small Apps Script update that adds the bookingPage() function.)
+          -->
+          <iframe
+            title="Book an appointment with Offhours24"
+            src="https://script.google.com/macros/s/AKfycbz-ufn-bZXLqnmXhJJx52CLZbusvpDDnssJlU8hixFIuQpkYW0D1Iaqs1_ER1TDjF0TjA/exec?page=book"
+            loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section id="faq" aria-label="FAQ">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="kicker">Questions</span>
+          <h2>Everything clinics ask us</h2>
+        </div>
+        <div class="faq reveal">
+          <div class="faq-item">
+            <button class="faq-q">Can it handle both phone calls and website chat? <span class="plus">+</span></button>
+            <div class="faq-a"><p>Yes. You get an AI voice agent for calls and a chatbot for your website — use one or both. Either way, the same assistant answers questions and books appointments.</p></div>
           </div>
-          <div class="benefit-card reveal">
-            <div class="ico">💬</div>
-            <span class="num">02</span>
-            <h3>Respond faster</h3>
-            <p>AI-powered systems reply to leads and customers in seconds — day or night — so no one waits.</p>
+          <div class="faq-item">
+            <button class="faq-q">What happens after hours or when the desk is busy? <span class="plus">+</span></button>
+            <div class="faq-a"><p>It answers every time — 24/7. Evenings, weekends, holidays, or while your team is with another patient, no call or message goes unanswered.</p></div>
           </div>
-          <div class="benefit-card reveal">
-            <div class="ico">🎯</div>
-            <span class="num">03</span>
-            <h3>Capture more leads</h3>
-            <p>Every enquiry gets followed up automatically, so fewer opportunities fall through the cracks.</p>
+          <div class="faq-item">
+            <button class="faq-q">Does it book straight into our calendar? <span class="plus">+</span></button>
+            <div class="faq-a"><p>Yes. It checks your real availability in real time and reserves the appointment on your calendar during the conversation — no double-bookings.</p></div>
           </div>
-          <div class="benefit-card reveal">
-            <div class="ico">🔗</div>
-            <span class="num">04</span>
-            <h3>Streamline operations</h3>
-            <p>Connect your tools and steps into one smooth workflow instead of scattered manual handoffs.</p>
+          <div class="faq-item">
+            <button class="faq-q">Will it sound robotic to our patients? <span class="plus">+</span></button>
+            <div class="faq-a"><p>Not at all. It speaks in a warm, natural voice with real conversation flow. Most patients simply feel like they reached a helpful receptionist.</p></div>
           </div>
-          <div class="benefit-card reveal">
-            <div class="ico">📈</div>
-            <span class="num">05</span>
-            <h3>Scale more easily</h3>
-            <p>Build systems that handle more volume without you constantly adding more manual effort or headcount.</p>
+          <div class="faq-item">
+            <button class="faq-q">Can it answer common patient questions? <span class="plus">+</span></button>
+            <div class="faq-a"><p>Yes — we train it on your clinic's services, hours, location, pricing, and policies, so it responds accurately and on-brand.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">Does it work with our existing booking tools? <span class="plus">+</span></button>
+            <div class="faq-a"><p>Yes. It connects to the calendar and systems your clinic already relies on, so there's nothing to rip out or relearn.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">Is patient information kept private? <span class="plus">+</span></button>
+            <div class="faq-a"><p>Absolutely. Details are used only to book the appointment and follow up — never shared or sold.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">How long does setup take? <span class="plus">+</span></button>
+            <div class="faq-a"><p>Usually days, not months. We handle the build and integration, test it with you, then go live — with ongoing support.</p></div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- BOOKING + CONTACT FORM -->
+    <!-- ===================== CONTACT ===================== -->
+    <section class="alt" aria-label="Contact">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="kicker">Get in touch</span>
+          <h2>Talk to us about your clinic</h2>
+          <p>Prefer a human first? Send a message or book a quick call — we'll map out exactly how Offhours24 fits your front desk.</p>
+        </div>
         <div class="engage-grid">
-
-          <!-- Calendly placeholder -->
           <div class="panel reveal">
-            <h3>Book a free consultation</h3>
-            <p class="lead">Pick a time that works for you and we'll map out where automation can save you the most time.</p>
-            <!--
-              NOTE: Calendly only embeds on a real (https) domain, not from a local file.
-              After you DEPLOY, you can swap this booking card for the live inline calendar:
-                <div class="calendly-inline-widget" data-url="https://calendly.com/khanowais0340/30min" style="min-width:320px;height:660px;"></div>
-                <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-            -->
-            <div class="booking-card">
-              <div class="booking-cal" aria-hidden="true">
-                <div class="cal-top">
-                  <span class="cal-month">Pick your time</span>
-                  <span class="cal-nav"><i>‹</i><i>›</i></span>
-                </div>
-                <div class="cal-grid">
-                  <span class="cal-h">Mo</span><span class="cal-h">Tu</span><span class="cal-h">We</span><span class="cal-h">Th</span><span class="cal-h">Fr</span><span class="cal-h">Sa</span><span class="cal-h">Su</span>
-                  <span class="cal-muted">30</span><span>1</span><span>2</span><span>3</span><span class="cal-free">4</span><span class="cal-muted">5</span><span class="cal-muted">6</span>
-                  <span>7</span><span class="cal-free">8</span><span>9</span><span>10</span><span class="cal-free">11</span><span class="cal-muted">12</span><span class="cal-muted">13</span>
-                  <span>14</span><span class="cal-pick">15</span><span class="cal-free">16</span><span>17</span><span>18</span><span class="cal-muted">19</span><span class="cal-muted">20</span>
-                  <span class="cal-free">21</span><span>22</span><span>23</span><span class="cal-free">24</span><span>25</span><span class="cal-muted">26</span><span class="cal-muted">27</span>
-                </div>
-              </div>
-              <div class="booking-body">
-                <ul class="booking-perks">
-                  <li>30-minute discovery call</li>
-                  <li>A tailored automation plan for your business</li>
-                  <li>No pressure, no obligation</li>
-                </ul>
-                <a class="btn btn-primary btn-lg" href="https://calendly.com/khanowais0340/30min" target="_blank" rel="noopener" style="width:100%;">Book Your Free Call →</a>
-                <p class="booking-note">Opens our live booking calendar in a new tab</p>
-              </div>
+            <h3>Why book a call</h3>
+            <p class="lead">A short, no-pressure walkthrough tailored to your clinic.</p>
+            <ul class="info-list">
+              <li><span class="ic">🎯</span><div>See exactly how the AI would handle your patients' calls and messages.</div></li>
+              <li><span class="ic">📅</span><div>Get a clear plan to connect it to your calendar and booking flow.</div></li>
+              <li><span class="ic">💬</span><div>Ask anything — no jargon, no obligation.</div></li>
+            </ul>
+            <div style="margin-top:1.6rem;">
+              <a class="btn btn-primary btn-lg" href="#book" style="width:100%;">Book an Appointment →</a>
             </div>
           </div>
 
-          <!-- Contact form -->
           <div class="panel reveal">
             <h3>Send us a message</h3>
-            <p class="lead">Prefer to write? Tell us about your business and we'll get back to you.</p>
-
+            <p class="lead">Tell us about your clinic and we'll get back to you.</p>
             <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
-
             <form id="contactForm" novalidate>
               <div class="field" id="f-name">
                 <label for="name">Full name <span class="req">*</span></label>
                 <input type="text" id="name" name="name" autocomplete="name" required />
                 <span class="err">Please enter your name.</span>
               </div>
-
               <div class="form-row">
                 <div class="field" id="f-email">
                   <label for="email">Email address <span class="req">*</span></label>
@@ -519,29 +656,25 @@
                   <span class="err">Please enter a valid phone number.</span>
                 </div>
               </div>
-
               <div class="field" id="f-company">
-                <label for="company">Company / business name <span class="opt">(optional)</span></label>
+                <label for="company">Clinic name <span class="opt">(optional)</span></label>
                 <input type="text" id="company" name="company" autocomplete="organization" />
                 <span class="err"></span>
               </div>
-
               <div class="field" id="f-message">
                 <label for="message">Message <span class="req">*</span></label>
-                <textarea id="message" name="message" required placeholder="What would you like to automate?"></textarea>
+                <textarea id="message" name="message" required placeholder="What would you like your AI front desk to handle?"></textarea>
                 <span class="err">Please enter a short message.</span>
               </div>
-
               <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">Send Message</button>
             </form>
           </div>
         </div>
 
-        <!-- FINAL CTA -->
-        <div class="final-cta reveal">
-          <h2>Ready to automate your business?</h2>
-          <p>Book a free consultation and see exactly how much time Offhours24 can save you.</p>
-          <a class="btn btn-accent btn-lg" href="https://calendly.com/khanowais0340/30min" target="_blank" rel="noopener">Book a Free Consultation</a>
+        <div class="final-cta reveal" style="margin-top:4.5rem;">
+          <h2>Ready to give your clinic a 24/7 front desk?</h2>
+          <p>See your own AI voice agent and chatbot booking real appointments — set up in days.</p>
+          <a class="btn btn-accent btn-lg" href="#book">Book an Appointment →</a>
         </div>
       </div>
     </section>
@@ -564,7 +697,7 @@
         <button class="chat-close" id="chatClose" aria-label="Close chat">✕</button>
       </div>
       <div class="chat-body" id="chatBody">
-        <div class="chat-msg bot"><div class="cb">Hi! 👋 I'm the Offhours24 assistant. Tell me your business type (salon, dental, clinic…) and I'll show you how AI automation can help.</div></div>
+        <div class="chat-msg bot"><div class="cb">Hi! 👋 I'm the Offhours24 virtual assistant. How can I help you today?</div></div>
       </div>
       <div class="chat-input">
         <input id="chatInput" type="text" placeholder="Type a message…" autocomplete="off" />
@@ -577,12 +710,31 @@
   <elevenlabs-convai agent-id="agent_2101m1402bfhe8dtms2bavdy4398"></elevenlabs-convai>
   <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 
-  <!-- ===================== FOOTER (not a content section) ===================== -->
+  <!-- ===================== FOOTER ===================== -->
   <footer>
-    <div class="container foot">
-      <a href="#top" class="brand" style="font-size:1.1rem;"><span class="mark" style="width:28px;height:28px;font-size:0.9rem;">🌙</span>Offhours<span class="accent">24</span></a>
-      <span>© 2026 Offhours24 · AI Automation Agency</span>
+    <div class="container footer-main">
+      <div class="footer-brand">
+        <a href="#top" class="brand" style="font-size:1.25rem;"><span class="mark">🌙</span>Offhours<span class="accent">24</span></a>
+        <div class="tag">AI Front Desk for Clinics</div>
+        <p>An AI receptionist and chatbot that answer every call and message, book appointments, and automate your clinic's front-desk workflow and patient support — 24/7.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul class="footer-links">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#demo">Live Demo</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#book">Book Appointment</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-cta">
+        <h4>Ready to give your clinic a 24/7 front desk?</h4>
+        <p>See your own AI receptionist answering calls and booking real appointments — live.</p>
+        <a class="btn btn-primary" href="#book">Book an Appointment →</a>
+      </div>
     </div>
+    <div class="footer-bottom">© 2026 Offhours24. All rights reserved.</div>
   </footer>
 
   <script>
@@ -614,14 +766,13 @@
       menuBtn.setAttribute('aria-expanded', 'false');
     }));
 
-    /* ---------- Scroll reveal (with safe fallback) ---------- */
+    /* ---------- Scroll reveal ---------- */
     const revealEls = document.querySelectorAll('.reveal');
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries) => {
         entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
       }, { threshold: 0.12 });
       revealEls.forEach(el => io.observe(el));
-      // Safety net: reveal everything after 1.5s no matter what.
       setTimeout(() => revealEls.forEach(el => el.classList.add('in')), 1500);
     } else {
       revealEls.forEach(el => el.classList.add('in'));
@@ -629,89 +780,59 @@
 
     /* ---------- Video placeholder hint ---------- */
     document.getElementById('videoPlaceholder').addEventListener('click', () => {
-      // Placeholder only — replace the .video-wrap contents with your YouTube <iframe> (see HTML comment).
       window.open('https://www.youtube.com', '_blank', 'noopener');
     });
 
+    /* ---------- FAQ accordion ---------- */
+    document.querySelectorAll('.faq-item .faq-q').forEach(function (q) {
+      q.addEventListener('click', function () {
+        const item = q.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function (i) { i.classList.remove('open'); });
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
     /* ======================================================================
-       CONTACT FORM
-       ----------------------------------------------------------------------
-       To RECEIVE messages, connect a form service (no backend/server needed):
-       1) Create a free form at https://formspree.io (or similar).
-       2) Paste your endpoint URL below, e.g.:
-          const FORM_ENDPOINT = "https://formspree.io/f/xxxxxxxx";
-       Until an endpoint is set, the form validates but does NOT pretend to send.
+       CONTACT FORM — connect Formspree to receive messages (see comment).
        ====================================================================== */
-    const FORM_ENDPOINT = ""; // <-- paste your Formspree (or similar) endpoint here
+    /* Contact form → your Google Apps Script (emails khanowais0340@gmail.com + logs to Sheet) */
+    const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbz-ufn-bZXLqnmXhJJx52CLZbusvpDDnssJlU8hixFIuQpkYW0D1Iaqs1_ER1TDjF0TjA/exec";
+    const LEAD_KEY = "oh24_web_2231";
 
     const form = document.getElementById('contactForm');
     const statusEl = document.getElementById('formStatus');
     const submitBtn = document.getElementById('submitBtn');
-
-    function setStatus(type, msg) {
-      statusEl.className = 'form-status show ' + type;
-      statusEl.textContent = msg;
-    }
-    function markField(id, invalid) {
-      document.getElementById(id).classList.toggle('invalid', invalid);
-    }
+    function setStatus(type, msg) { statusEl.className = 'form-status show ' + type; statusEl.textContent = msg; }
+    function markField(id, invalid) { document.getElementById(id).classList.toggle('invalid', invalid); }
     function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
     function isPhone(v) { return v === '' || /^[+()\-\s0-9]{6,}$/.test(v); }
-
     function validate() {
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      const phone = form.phone.value.trim();
-      const message = form.message.value.trim();
+      const name = form.name.value.trim(), email = form.email.value.trim(), phone = form.phone.value.trim(), message = form.message.value.trim();
       let ok = true;
-
-      markField('f-name', false); markField('f-email', false);
-      markField('f-phone', false); markField('f-message', false);
-
+      markField('f-name', false); markField('f-email', false); markField('f-phone', false); markField('f-message', false);
       if (name.length < 2) { markField('f-name', true); ok = false; }
       if (!isEmail(email)) { markField('f-email', true); ok = false; }
       if (!isPhone(phone)) { markField('f-phone', true); ok = false; }
       if (message.length < 5) { markField('f-message', true); ok = false; }
       return ok;
     }
-
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
-      statusEl.className = 'form-status'; // hide
-
-      if (!validate()) {
-        setStatus('error', 'Please fix the highlighted fields and try again.');
-        return;
-      }
-
-      // No endpoint configured yet — be honest, do not fake a send.
-      if (!FORM_ENDPOINT) {
-        setStatus('info', 'Your form is ready ✅ — add your form-service endpoint (see code comment) to start receiving messages. Meanwhile, you can book a call using the button on the left.');
-        return;
-      }
-
-      // Real submission
+      statusEl.className = 'form-status';
+      if (!validate()) { setStatus('error', 'Please fix the highlighted fields and try again.'); return; }
       submitBtn.disabled = true;
-      const original = submitBtn.textContent;
-      submitBtn.textContent = 'Sending…';
-      try {
-        const res = await fetch(FORM_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: new FormData(form)
-        });
-        if (res.ok) {
-          form.reset();
-          setStatus('success', 'Thanks! Your message has been sent — we\'ll be in touch shortly.');
-        } else {
-          setStatus('error', 'Something went wrong sending your message. Please try again, or book a call instead.');
-        }
-      } catch (err) {
-        setStatus('error', 'Network error — please check your connection and try again, or book a call instead.');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = original;
-      }
+      const original = submitBtn.textContent; submitBtn.textContent = 'Sending…';
+      const params = new URLSearchParams({
+        api_key: LEAD_KEY, action: 'capture_lead',
+        name: form.name.value.trim(), email: form.email.value.trim(),
+        phone: form.phone.value.trim(), business: form.company.value.trim(),
+        notes: form.message.value.trim()
+      });
+      fetch(LEAD_ENDPOINT + '?' + params.toString(), { method: 'GET', mode: 'no-cors' })
+        .then(function () { form.reset(); setStatus('success', 'Thanks! Your message has been sent — we\'ll be in touch shortly.'); })
+        .catch(function () { setStatus('error', 'Network error — please try again, or book an appointment above.'); })
+        .finally(function () { submitBtn.disabled = false; submitBtn.textContent = original; });
     });
 
     /* ---------- Floating chatbot demo ---------- */
@@ -721,7 +842,6 @@
     const chatBody = document.getElementById('chatBody');
     const chatInput = document.getElementById('chatInput');
     const chatSend = document.getElementById('chatSend');
-
     function toggleChat(open) {
       const willOpen = open !== undefined ? open : !chatWindow.classList.contains('open');
       chatWindow.classList.toggle('open', willOpen);
@@ -730,6 +850,8 @@
     }
     launcher.addEventListener('click', () => toggleChat());
     chatClose.addEventListener('click', () => toggleChat(false));
+    const demoChatBtn = document.getElementById('demoChatBtn');
+    if (demoChatBtn) demoChatBtn.addEventListener('click', () => toggleChat(true));
 
     function addChat(text, who) {
       const m = document.createElement('div');
@@ -741,19 +863,14 @@
     }
     function botReply(userText) {
       const t = userText.toLowerCase();
-      if (/(price|cost|pricing|how much|quote)/.test(t))
-        return "Pricing depends on what you'd like to automate. The quickest way to get an exact quote is a free 30-min call — tap “Book Your Free Call” above and pick a time. 📅";
-      if (/(book|appointment|call|demo|meeting|consult)/.test(t))
-        return "Love it! You can book a free consultation using the “Book Your Free Call” button on this page. Anything specific you'd like us to focus on?";
-      if (/(salon|hair|beauty|barber)/.test(t))
-        return "Perfect — for salons & barbershops we automate bookings, reminders, and instant replies to missed calls, so no client slips away. Want to see it live on a quick call?";
-      if (/(dental|dentist|clinic|medical|doctor|health)/.test(t))
-        return "Great — for clinics we handle appointment requests, reminders, and after-hours enquiries 24/7, cutting no-shows and admin. Shall we map it out on a free call?";
-      if (/(spa|massage|wellness|gym|fitness|studio)/.test(t))
-        return "Nice — for spas & studios we automate class/appointment bookings, waitlists, and follow-ups so every slot stays full. Want a quick walkthrough?";
-      if (/(hi|hello|hey|salam|assalam)/.test(t))
-        return "Hey! 👋 Tell me your business type and I'll show you exactly where AI automation saves you time.";
-      return "Good question! Offhours24 builds AI chatbots & voice agents that handle bookings, reply to leads instantly, and organize your day. The best next step is a quick free call — want me to point you to the booking button?";
+      if (/(price|cost|pricing|how much|quote|fee)/.test(t)) return "Pricing is tailored to each clinic and what you'd like to automate. The quickest way to get an exact quote is a short demo — scroll to “Book Appointment,” grab a time, and we'll walk you through it. 📅";
+      if (/(service|offer|do you do|what do you|provide|help with|feature)/.test(t)) return "We run your whole front desk: AI voice & chat reception, appointment bookings, patient communication, customer support, lead capture, and CRM/workflow automation — all 24/7. Want to see it live? Book a demo above.";
+      if (/(book|demo|appointment|schedule|slot|reserve|call|meeting)/.test(t)) return "Love it! Scroll up to “Book Appointment,” pick a day and an open time, and you'll get an instant confirmation — that's actually our own booking system working live. ✅";
+      if (/(voice|phone|receptionist)/.test(t)) return "Our AI voice agent answers your clinic's calls like a receptionist — greeting patients, answering questions, and booking them in, 24/7. You can talk to it right now using the button in the bottom-right corner. 🎙️";
+      if (/(chat|website|widget|bot|message)/.test(t)) return "Our chatbot — that's me! — lives on your website and answers patients instantly: questions, bookings, and follow-ups, day or night. 💬";
+      if (/(clinic|dental|dentist|medical|doctor|health|patient|spa|salon)/.test(t)) return "Perfect — we set clinics up with an AI receptionist and chatbot that answer every call and message, book appointments, and cut no-shows. Want to see it on a quick demo? Just book above.";
+      if (/(hi|hello|hey|salam|assalam)/.test(t)) return "Hey! 👋 I'm Offhours24's assistant. Ask me what we build, or how a 24/7 AI front desk would work for your clinic.";
+      return "Great question! Offhours24 builds AI receptionists and chatbots that answer calls and messages, book appointments, and automate your clinic's front desk — 24/7. Want to see it live? Scroll up and book a quick demo. 🚀";
     }
     function sendChat() {
       const val = chatInput.value.trim();
